@@ -39,7 +39,13 @@ let clickedTile = (tile) => {
       break;
     case "start":
       if (startExists) {
-        alert("Start already exists!");
+        Toastify({
+          text: "Start already exists!",
+          duration: 1000,
+          style: {
+            background: "linear-gradient(to right top, #c04000, #ff0000)",
+          },
+        }).showToast();
         return;
       }
       tile.style.backgroundColor = "limegreen";
@@ -47,7 +53,13 @@ let clickedTile = (tile) => {
       break;
     case "goal":
       if (goalExists) {
-        alert("Goal already exists!");
+        Toastify({
+          text: "Goal already exists!",
+          duration: 1000000,
+          style: {
+            background: "linear-gradient(to right top, #c04000, #ff0000)",
+          },
+        }).showToast();
         return;
       }
       tile.style.backgroundColor = "orange";
@@ -59,9 +71,9 @@ let clickedTile = (tile) => {
   tile.dataset.type = selectedTile.dataset.type;
 };
 
-let resetTiles = () => {
+let resetTileStatus = () => {
   startExists = false;
   goalExists = false;
 };
 
-export { clickedTile, resetTiles };
+export { clickedTile, resetTileStatus };

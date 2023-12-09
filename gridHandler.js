@@ -1,4 +1,4 @@
-import { clickedTile, resetTiles } from "./tileSelectorHandler.js";
+import { clickedTile, resetTileStatus } from "./tileSelectorHandler.js";
 
 const grid = document.querySelector("#grid");
 const gridRowsSelector = document.querySelector("#gridY");
@@ -51,7 +51,19 @@ let populateGrid = (rows, cols) => {
 populateGrid(GRID_Y, GRID_X);
 
 gridUpdateBtn.addEventListener("click", () => {
+  console.log(requestGridState());
   grid.innerHTML = "";
   populateGrid(gridRowsSelector.value, gridColsSelector.value);
-  resetTiles();
+  resetTileStatus();
 });
+
+let requestGridState = () => {
+  let gridState = [];
+  for (let i = 0; i < grid.children.length; i++) {
+    gridState.push([]);
+    for (let j = 0; j < grid.children[i].children.length; j++) {
+      gridState[i].push(grid.children[i].children[j].dataset.type);
+    }
+  }
+  return gridState;
+};
