@@ -41,7 +41,7 @@ let clickedTile = (tile) => {
       if (startExists) {
         Toastify({
           text: "Start already exists!",
-          duration: 1000,
+          duration: 2000,
           style: {
             background: "linear-gradient(to right top, #c04000, #ff0000)",
           },
@@ -55,7 +55,7 @@ let clickedTile = (tile) => {
       if (goalExists) {
         Toastify({
           text: "Goal already exists!",
-          duration: 1000,
+          duration: 2000,
           style: {
             background: "linear-gradient(to right top, #c04000, #ff0000)",
           },

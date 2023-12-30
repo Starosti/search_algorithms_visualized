@@ -16,11 +16,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="flex flex-col h-screen bg-gradient-to-tl from-slate-800 to-slate-600">
-    <main class="w-full h-full flex flex-col">
-        <div class="flex w-screen justify-center my-10 gap-10" id="settingsContainer">
+<body class="h-full lg:h-screen bg-gradient-to-tl from-slate-800 to-slate-600 pb-10">
+    <main class="w-full h-[82rem] lg:h-full flex flex-col">
+        <div class="flex flex-col lg:flex-row justify-center m-10 lg:mx-0 gap-10" id="settingsContainer">
             <div class="grid grid-cols-[repeat(2,auto)] p-5 gap-x-1 gap-y-5 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300"
                 id="searchSettings">
+                <p class="text-2xl font-medium col-span-full">Search Settings</p>
                 <label class="flex items-center justify-end whitespace-nowrap text-right text-lg font-medium"
                     for="algorithm">Search Algorithm:</label>
                 <div class="whitespace-nowrap">
@@ -28,7 +29,8 @@
                         <option value="dfs">Depth-First Search</option>
                         <!-- populate via js -->
                     </select>
-                    <a href="#modal"><i class="fa fa-question-circle fa-lg hover:text-blue-100 transition"></i></a>
+                    <a href="#modal"><i class="fa fa-question-circle fa-lg hover:text-blue-100 transition"
+                            title="Search Algorithm Info"></i></a>
                 </div>
                 <label class="flex items-center justify-end whitespace-nowrap text-right font-medium text-lg"
                     for="priority">Search
@@ -38,10 +40,12 @@
                         <option value="dfs">Top-Left First</option>
                         <!-- populate via js -->
                     </select>
-                    <a href="#modal"><i class="fa fa-question-circle fa-lg hover:text-blue-100 transition"></i></a>
+                    <a href="#modal"><i class="fa fa-question-circle fa-lg hover:text-blue-100 transition"
+                            title="Search Priority Info"></i></a>
                 </div>
-                <br>
-                <button class="bg-blue-200 rounded-md border border-black p-1 hover:brightness-125 transition">Start
+                <br class="hidden lg:block">
+                <button
+                    class="bg-blue-200 rounded-md border border-black p-1 hover:brightness-125 transition col-span-full lg:col-span-1 mx-10 lg:mx-0">Start
                     Search</button>
             </div>
             <div class="flex flex-col justify-between items-center p-5 gap-3 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300"
@@ -91,10 +95,8 @@
             <!-- <div class="inline-block w-1/5 h-1/5 border border-black bg-white"> -->
         </div>
 
-        </div>
-
     </main>
-    <footer class="ml-5 mb-1 text-blue-300 text-sm">
+    <footer class="ml-5 my-1 text-blue-300 text-sm">
         <a href="https://github.com/Starosti">Starosti © 2023</a>
     </footer>
     <script src="main.js" type="module"></script>
