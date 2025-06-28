@@ -1,11 +1,11 @@
-import { clickedTile, resetTileStatus } from "./tileSelectorHandler.js";
+import { clickedTile, resetTileStatus, gridChangedEvent } from "./tileSelectorHandler.js";
 
 const grid = document.querySelector("#grid");
 const gridRowsSelector = document.querySelector("#gridY");
 const gridColsSelector = document.querySelector("#gridX");
 const gridUpdateBtn = document.querySelector("#updateGridBtn");
-const GRID_X = 20;
-const GRID_Y = 6;
+const GRID_X = 31;
+const GRID_Y = 11;
 
 // populate gridrows and gridcols selectors
 for (let i = 1; i <= 50; i++) {
@@ -46,6 +46,9 @@ let populateGrid = (rows, cols) => {
   for (let i = 0; i < rows; i++) {
     grid.appendChild(createRow(cols));
   }
+  
+  // Dispatch gridChanged event
+  document.dispatchEvent(gridChangedEvent);
 };
 
 populateGrid(GRID_Y, GRID_X);
@@ -65,5 +68,8 @@ let requestGridState = () => {
       gridState[i].push(grid.children[i].children[j].dataset.type);
     }
   }
+  console.log("gridstate",gridState)
   return gridState;
 };
+
+export { requestGridState };

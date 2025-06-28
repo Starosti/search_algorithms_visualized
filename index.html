@@ -16,15 +16,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="h-full lg:h-screen bg-gradient-to-tl from-slate-800 to-slate-600 pb-10">
+<body class="h-full lg:h-screen bg-gradient-to-tl from-slate-800 to-slate-600 pb-6">
     <main class="w-full h-[82rem] lg:h-full flex flex-col">
-        <div class="flex flex-col lg:flex-row justify-center m-10 lg:mx-0 gap-10" id="settingsContainer">
+        <div class="flex flex-col lg:flex-row justify-center m-4 lg:mx-0 gap-10" id="settingsContainer">
+
+            <!-- Search Settings-->
             <div class="grid grid-cols-[repeat(2,auto)] p-5 gap-x-1 gap-y-5 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300"
                 id="searchSettings">
                 <p class="text-2xl font-medium col-span-full">Search Settings</p>
                 <label class="flex items-center justify-end whitespace-nowrap text-right text-lg font-medium"
                     for="algorithm">Search Algorithm:</label>
-                <div class="whitespace-nowrap">
+                <div class="whitespace-nowrap flex items-center gap-1">
                     <select name="algorithm" class="rounded-md p-2 w-52 bg-blue-200 border border-black" id="algorithm">
                         <option value="dfs">Depth-First Search</option>
                         <!-- populate via js -->
@@ -35,7 +37,7 @@
                 <label class="flex items-center justify-end whitespace-nowrap text-right font-medium text-lg"
                     for="priority">Search
                     Priority:</label>
-                <div class="whitespace-nowrap">
+                <div class="whitespace-nowrap flex items-center gap-1">
                     <select name="priority" class="rounded-md p-2 w-52 bg-blue-200 border border-black" id="priority">
                         <option value="dfs">Top-Left First</option>
                         <!-- populate via js -->
@@ -43,62 +45,124 @@
                     <a href="#modal"><i class="fa fa-question-circle fa-lg hover:text-blue-100 transition"
                             title="Search Priority Info"></i></a>
                 </div>
+
+                <!-- New delay slider -->
+                <label class="flex items-center justify-end whitespace-nowrap text-right font-medium text-lg"
+                    for="stepDelay">Animation Speed:</label>
+                <div class="flex items-center whitespace-nowrap gap-2">
+                    <span>Fast</span>
+                    <input type="range" id="stepDelay" name="stepDelay" min="10" max="200" value="50"
+                        class="w-24 accent-blue-600">
+                    <span>Slow</span>
+                    <span id="delayValue" class="ml-2 bg-blue-200 px-2 py-1 rounded-md border border-black">50ms</span>
+                </div>
+
                 <br class="hidden lg:block">
-                <button
+                <button id="startSearchBtn"
                     class="bg-blue-200 rounded-md border border-black p-1 hover:brightness-125 transition col-span-full lg:col-span-1 mx-10 lg:mx-0">Start
                     Search</button>
             </div>
-            <div class="flex flex-col justify-between items-center p-5 gap-3 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300"
-                id="gridSettings">
-                <p class="text-2xl font-medium">Grid Size</p>
-                <div class="whitespace-nowrap">
-                    <select name="gridX" id="gridX" class="rounded-md p-2 bg-blue-200 border border-black">
-                        <option value="1">1</option>
-                        <!-- populate via js -->
-                    </select>
-                    x
-                    <select name="gridY" id="gridY" class="rounded-md p-2 bg-blue-200 border border-black">
-                        <option value="1">1</option>
-                        <!-- populate via js -->
-                    </select>
+            <!-- Grid Toolbox -->
+            <div class="flex bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300 p-5">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Top Left: Grid Size -->
+                    <div class="flex flex-col items-center gap-2">
+                        <p class="text-xl font-medium">Grid Size</p>
+                        <div class="whitespace-nowrap">
+                            <select name="gridX" id="gridX" class="rounded-md p-2 bg-blue-200 border border-black">
+                                <option value="1">1</option>
+                                <!-- populate via js -->
+                            </select>
+                            x
+                            <select name="gridY" id="gridY" class="rounded-md p-2 bg-blue-200 border border-black">
+                                <option value="1">1</option>
+                                <!-- populate via js -->
+                            </select>
+                        </div>
+                        <button id="updateGridBtn"
+                            class="bg-blue-200 rounded-md border border-black p-1 px-5 hover:brightness-125 transition whitespace-nowrap">
+                            Update Grid
+                        </button>
+                    </div>
+
+                    <!-- Top Right: Current Tile -->
+                    <div class="flex flex-col items-center gap-2">
+                        <p class="text-xl font-medium">Current Tile:</p>
+                        <div id="selectedTileDisplay" class="mt-2"></div>
+                    </div>
+
+                    <!-- Bottom: Select A Tile (spans 2 columns) -->
+                    <div class="col-span-2 flex flex-col items-center gap-3">
+                        <p class="text-xl font-medium">Select A Tile</p>
+                        <div id="selectableTilesContainer" class="flex justify-center items-center gap-2">
+                            <button id="emptyTileBtn" data-type="empty"
+                                class="w-16 h-16 flex items-center justify-center bg-white border border-black rounded-sm hover:bg-gray-300 transition">
+                                Empty</button>
+                            <button id="wallTileBtn" data-type="wall"
+                                class="w-16 h-16 flex items-center justify-center bg-black border border-black rounded-sm text-white hover:bg-gray-700 transition">
+                                Wall</button>
+                            <button id="goalTileBtn" data-type="goal"
+                                class="w-16 h-16 flex items-center justify-center bg-[orange] border border-black rounded-sm hover:brightness-125 transition">
+                                Goal</button>
+                            <button id="startTileBtn" data-type="start"
+                                class="w-16 h-16 flex items-center justify-center bg-[limegreen] border border-black rounded-sm hover:brightness-125 transition">
+                                Start</button>
+                        </div>
+                    </div>
                 </div>
-                <button id="updateGridBtn"
-                    class="bg-blue-200 rounded-md border border-black p-1 px-5 hover:brightness-125 transition whitespace-nowrap">Update
-                    Grid</button>
             </div>
-            <div class="flex flex-col justify-around items-center p-5 gap-3 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300"
-                id="tileEditorSelect">
-                <p class="text-2xl font-medium">Select A Tile</p>
-                <div id="selectableTilesContainer" class="flex justify-center items-center gap-2">
-                    <button id="emptyTileBtn" data-type="empty"
-                        class="w-16 h-16 flex items-center justify-center bg-white border border-black rounded-sm hover:bg-gray-300 transition">
-                        Empty</button>
-                    <button id="wallTileBtn" data-type="wall"
-                        class="w-16 h-16 flex items-center justify-center bg-black border border-black rounded-sm text-white hover:bg-gray-700 transition">
-                        Wall</button>
-                    <button id="goalTileBtn" data-type="goal"
-                        class="w-16 h-16 flex items-center justify-center bg-[orange] border border-black rounded-sm hover:brightness-125 transition">
-                        Goal</button>
-                    <button id="startTileBtn" data-type="start"
-                        class="w-16 h-16 flex items-center justify-center bg-[limegreen] border border-black rounded-sm hover:brightness-125 transition">
-                        Start</button>
-                </div>
+            <!-- Templates Section -->
+            <div class="flex flex-col p-5 gap-x-1 gap-y-5 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300"
+                id="templatesSection">
+                <p class="text-2xl font-medium col-span-full">Templates</p>
+                <span class="flex flex-row gap-x-1 gap-y-5">
+                    <label class="flex items-center justify-end whitespace-nowrap text-right text-lg font-medium"
+                        for="templateSelect">Load Template:</label>
+                    <div class="whitespace-nowrap flex gap-2">
+                        <select name="templateSelect" class="rounded-md p-2 bg-blue-200 border border-black"
+                            id="templateSelect">
+                            <option value="empty">Empty Grid</option>
+                            <option value="randomMaze">Random Labyrinth</option>
+                        </select>
+
+                    </div>
+                </span>
+                <button id="loadTemplateBtn"
+                    class="bg-blue-200 rounded-md border border-black p-1 px-3 hover:brightness-125 transition whitespace-nowrap">
+                    Load
+                </button>
             </div>
-            <div class="flex flex-col justify-around items-center p-5 gap-3 bg-gradient-to-tr shadow-lg rounded-md from-blue-400 to-indigo-300 whitespace-nowrap"
-                id="tileEditorCurrent">
-                <p class="text-2xl font-medium">Current Tile:</p>
-                <div id="selectedTileDisplay"></div>
-            </div>
+
+
         </div>
-        <div id="grid" class="flex flex-col my-2 px-5 w-full h-full">
+
+        <div id="grid" class="flex flex-col my-1 px-5 w-full h-full">
             <!-- tile -->
             <!-- <div class="inline-block w-1/5 h-1/5 border border-black bg-white"> -->
         </div>
 
     </main>
-    <footer class="ml-5 my-1 text-blue-300 text-sm">
+    <footer class="ml-5 text-blue-300 text-sm">
         <a href="https://github.com/Starosti">Starosti © 2023</a>
     </footer>
+
+    <!-- Modal Component -->
+    <div id="infoModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitle" class="text-xl font-bold text-gray-800"></h3>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="modalContent" class="text-gray-700"></div>
+        </div>
+    </div>
+
     <script src="main.js" type="module"></script>
     <!-- Toastify -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
