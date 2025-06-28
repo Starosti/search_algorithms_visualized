@@ -1,6 +1,10 @@
 # Search Algorithms Visualized 🔍
 
-An interactive web application that visualizes popular pathfinding and search algorithms in real-time. Watch as algorithms like Depth-First Search (DFS), Breadth-First Search (BFS), and A* navigate through customizable grids to find paths from start to goal.
+An interactive web application written with pure Vanilla Javascript (except for Toastify) that visualizes popular pathfinding and search algorithms in real-time. 
+
+[Check out the demo!](https://search-algorithms-visualized.netlify.app/)
+
+![Screenshot 2025-06-28 at 19-16-45 Search Algorithms Visualized](https://github.com/user-attachments/assets/eab62d41-18f5-4cda-8066-1ed99be06357)
 
 ## Features
 
