@@ -44,8 +44,6 @@ document.addEventListener("gridChanged", () => {
 
   // Use the resetVisuals function to ensure correct visual state
   resetVisuals();
-
-  console.log("Grid changed - visualization reset");
 });
 
 // ----------- SLIDER CODE -----------
@@ -313,7 +311,9 @@ function visualizeVisitedCell(row, col, gridState) {
   const currCell = gridState[row][col];
   if (currCell !== "start" && currCell !== "goal") {
     const cell = grid.children[row].children[col];
-    cell.style.backgroundColor = "#90cdf4"; // Light blue for visited
+    // Remove existing background classes and add search-visited class with animation
+    cell.className = cell.className.replace(/bg-\S+/g, "");
+    cell.classList.add("search-visited", "animate-show");
   }
 }
 
@@ -641,7 +641,14 @@ function visualizePath(path, goal) {
       const { row, col } = pathCells[pathCells.length - 1 - i];
       if (gridState[row][col] !== "start" && gridState[row][col] !== "goal") {
         const cell = grid.children[row].children[col];
-        cell.style.backgroundColor = "#38b246"; // Green for path
+        // Remove existing background classes and add search-path class with animation
+        cell.className = cell.className.replace(/bg-\S+/g, "");
+        cell.className = cell.className.replace(/search-visited/g, "");
+        cell.className = cell.className.replace(/animate-show/g, "");
+        cell.style.animation = "none";
+        cell.offsetHeight; // force reflow
+        cell.style.animation = ""; // or reassign the animation name if needed
+        cell.classList.add("search-path", "animate-show");
       }
     }, i * getCurrentDelay());
 

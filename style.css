@@ -1,3 +1,59 @@
-*{
-    font-family: 'Rubik', sans-serif;
+* {
+  font-family: "Rubik", sans-serif;
+}
+
+/* Custom classes for search algorithm visualization */
+.search-visited {
+  background-color: #90cdf4 !important; /* Light blue for visited cells */
+  border-color: #1e40af !important; /* Darker blue border */
+}
+
+.search-path {
+  background-color: #38b246 !important; /* Green for final path */
+  border-color: #166534 !important; /* Darker green border */
+}
+
+.animate-show {
+  animation: show 0.2s ease-in-out;
+}
+
+@keyframes show {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9) rotate(1deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Hover effects for grid cells */
+#grid button:hover {
+  z-index: 10;
+  position: relative;
+}
+
+/* Grid spacing consistency */
+#grid {
+  background-color: #374151; /* Gray-700 background for spacing */
+  padding: 1px; /* Thin border around entire grid */
+}
+
+#grid > div {
+  margin-bottom: 1px; /* Consistent spacing between rows */
+}
+
+#grid > div:last-child {
+  margin-bottom: 0; /* Remove margin from last row */
+}
+
+#grid button {
+  margin-right: 1px; /* Consistent spacing between cells */
+  border: none !important; /* Remove individual borders to rely on background spacing */
+}
+
+#grid button:last-child {
+  margin-right: 0; /* Remove margin from last cell in row */
 }

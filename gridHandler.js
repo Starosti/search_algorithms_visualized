@@ -1,4 +1,8 @@
-import { clickedTile, resetTileStatus, gridChangedEvent } from "./tileSelectorHandler.js";
+import {
+  clickedTile,
+  resetTileStatus,
+  gridChangedEvent,
+} from "./tileSelectorHandler.js";
 
 const grid = document.querySelector("#grid");
 const gridRowsSelector = document.querySelector("#gridY");
@@ -26,12 +30,20 @@ let createRow = (num) => {
   for (let i = 0; i < num; i++) {
     let cell = document.createElement("button");
     cell.classList.add(
-      "inline-block",
       "w-full",
       "h-full",
       "border",
-      "border-black",
-      "bg-white"
+      "border-gray-800",
+      "bg-white",
+      "hover:border-blue-500",
+      "transition-colors",
+      "duration-150",
+      "focus:outline-none",
+      "focus:ring-2",
+      "focus:ring-blue-400",
+      "focus:ring-opacity-50",
+      "min-w-[20px]",
+      "min-h-[20px]"
     );
     cell.dataset.type = "empty";
     cell.addEventListener("click", () => {
@@ -46,7 +58,7 @@ let populateGrid = (rows, cols) => {
   for (let i = 0; i < rows; i++) {
     grid.appendChild(createRow(cols));
   }
-  
+
   // Dispatch gridChanged event
   document.dispatchEvent(gridChangedEvent);
 };
@@ -54,7 +66,6 @@ let populateGrid = (rows, cols) => {
 populateGrid(GRID_Y, GRID_X);
 
 gridUpdateBtn.addEventListener("click", () => {
-  console.log(requestGridState());
   grid.innerHTML = "";
   populateGrid(gridRowsSelector.value, gridColsSelector.value);
   resetTileStatus();
@@ -68,7 +79,6 @@ let requestGridState = () => {
       gridState[i].push(grid.children[i].children[j].dataset.type);
     }
   }
-  console.log("gridstate",gridState)
   return gridState;
 };
 
