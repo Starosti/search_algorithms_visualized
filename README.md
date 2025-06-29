@@ -4,8 +4,7 @@ An interactive web application written with pure Vanilla Javascript (except for 
 
 [Check out the demo!](https://search-algorithms-visualized.netlify.app/)
 
-![Screenshot from the application](https://github.com/user-attachments/assets/a5424448-91ab-4cbc-afc8-82aa2e6db2f3)
-
+![Screenshot from the application](https://github.com/user-attachments/assets/641dbd14-a849-4a3b-89ea-0f8069fcdd35)
 
 ## Features
 
